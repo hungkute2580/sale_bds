@@ -1,11 +1,12 @@
 import { Body, Controller, Post, Headers } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { LoginDto } from 'src/dto/login.dto';
+import { RegisterDto } from 'src/dto/register.dto';
+import { ForgotPasswordDto } from 'src/dto/forgot-password.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-
   @Post('login')
   login(@Body() body: LoginDto) {
     return {
@@ -21,4 +22,19 @@ export class AuthController {
     };
   }
 
+  @Post('register')
+  register(@Body() body: RegisterDto) {
+    return {
+      message: 'Đăng ký thành công',
+      email: body.email,
+    };
+  }
+
+  @Post('forgot-pass')
+  forgotPassword(@Body() body: ForgotPasswordDto) {
+    return {
+      message: 'Link reset mật khẩu đã được gửi (mock)',
+      email: body.email,
+    };
+  }
 }
