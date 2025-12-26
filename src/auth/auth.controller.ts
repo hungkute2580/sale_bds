@@ -25,7 +25,7 @@ export class AuthController {
   @Post('register')
   register(@Body() body: RegisterDto) {
     return {
-      message: 'Đăng ký thành công',
+      message: 'Register OK',
       email: body.email,
     };
   }
@@ -33,7 +33,7 @@ export class AuthController {
   @Post('forgot-pass')
   forgotPassword(@Body() body: ForgotPasswordDto) {
     return {
-      message: 'Link reset mật khẩu đã được gửi (mock)',
+      message: 'Forgot Password OK',
       email: body.email,
     };
   }
