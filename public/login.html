@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng nhập | Sale BĐS</title>
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        background: #f4f6f8;
+      }
+
+      /* ===== LEFT BRAND ===== */
+      .left {
+        width: 45%;
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        color: white;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 22px;
+        font-weight: 700;
+        color: #f9c74f;
+      }
+
+      .logo span {
+        font-size: 30px;
+      }
+
+      .brand-content {
+        max-width: 420px;
+      }
+
+      .brand-content h1 {
+        font-size: 36px;
+        margin-bottom: 16px;
+      }
+
+      .brand-content p {
+        font-size: 16px;
+        line-height: 1.6;
+        opacity: 0.9;
+      }
+
+      .footer {
+        font-size: 14px;
+        opacity: 0.7;
+      }
+
+      /* ===== RIGHT LOGIN ===== */
+      .right {
+        width: 55%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .login-box {
+        width: 100%;
+        max-width: 380px;
+        background: white;
+        padding: 40px;
+        border-radius: 14px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .login-box h2 {
+        text-align: center;
+        margin-bottom: 8px;
+        font-weight: 700;
+        color: #203a43;
+      }
+
+      .login-box p {
+        text-align: center;
+        font-size: 14px;
+        color: #777;
+        margin-bottom: 28px;
+      }
+
+      .input-group {
+        margin-bottom: 18px;
+      }
+
+      .input-group input {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        font-size: 15px;
+        transition: 0.3s;
+      }
+
+      .input-group input:focus {
+        border-color: #2c5364;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(44, 83, 100, 0.15);
+      }
+
+      .btn-login {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(135deg, #f9c74f, #f9844a);
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+        color: #333;
+      }
+
+      .btn-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .msg {
+        text-align: center;
+        margin-top: 12px;
+        font-size: 14px;
+      }
+
+      .links {
+        text-align: center;
+        margin-top: 18px;
+        font-size: 14px;
+      }
+
+      .links a {
+        color: #2c5364;
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .links a:hover {
+        text-decoration: underline;
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 900px) {
+        .left {
+          display: none;
+        }
+        .right {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- LEFT BRAND -->
+    <div class="left">
+      <div class="logo">SALE BĐS</div>
+
+      <div class="brand-content">
+        <h1>Nền tảng quản lý<br />bất động sản</h1>
+        <p>
+          Giải pháp hỗ trợ sale, quản lý khách hàng và giao dịch bất động sản
+          nhanh chóng – chính xác – hiệu quả.
+        </p>
+      </div>
+
+      <div class="footer">© 2025 Sale BĐS Platform</div>
+    </div>
+
+    <!-- RIGHT LOGIN -->
+    <div class="right">
+      <div class="login-box">
+        <h2>Đăng nhập</h2>
+        <p>Vui lòng đăng nhập để tiếp tục</p>
+
+        <div class="input-group">
+          <input id="email" type="email" placeholder="Email" />
+        </div>
+
+        <div class="input-group">
+          <input id="password" type="password" placeholder="Mật khẩu" />
+        </div>
+
+        <button class="btn-login" onclick="login()">Đăng nhập</button>
+
+        <div class="msg" id="msg"></div>
+
+        <div class="links">
+          <a href="/forgot-password.html">Quên mật khẩu?</a><br />
+          <a href="/register.html">Tạo tài khoản mới</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      async function login() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const msg = document.getElementById("msg");
+
+        msg.style.color = "#555";
+        msg.innerText = "Đang đăng nhập...";
+
+        try {
+          const res = await fetch("/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+          });
+
+          const data = await res.json();
+
+          if (!res.ok) {
+            msg.style.color = "red";
+            msg.innerText = data.message || "Sai thông tin đăng nhập";
+            return;
+          }
+
+          localStorage.setItem("token", data.token);
+          msg.style.color = "green";
+          msg.innerText = "Đăng nhập thành công";
+
+          setTimeout(() => {
+            window.location.href = "/home.html";
+          }, 1000);
+        } catch {
+          msg.style.color = "red";
+          msg.innerText = "Không kết nối được server";
+        }
+      }
+
+      function forgotPass() {
+        window.location.href = "/forgot-password.html";
+      }
+    </script>
+  </body>
+</html>
