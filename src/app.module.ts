@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { SaleController } from './sale.controller';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { join } from 'path';
     // 👇 auth module của bạn
     AuthModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, SaleController],
   providers: [AppService],
 })
 export class AppModule {}
